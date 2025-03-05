@@ -3,6 +3,7 @@ package com.nhlstenden.route;
 
 import com.nhlstenden.Main;
 import com.nhlstenden.controllers.JsonUtils;
+import com.nhlstenden.controllers.SharedData;
 import io.javalin.Javalin;
 import io.javalin.util.FileUtil;
 
@@ -23,9 +24,9 @@ public class MainRoute
 				InputStreamReader reader = new InputStreamReader(uploadedFile.content());
 				try {
 					ArrayList<Object> resultArray = JsonUtils.jsonFileToMapGson(reader);
-
+					SharedData data = new SharedData(resultArray);
 					// Do something with resultArray...
-					System.out.println(resultArray);
+					System.out.println(data);
 				} catch (IOException e) {
 					throw new RuntimeException("Failed to read file with GSON", e);
 				}
