@@ -2,6 +2,7 @@ package com.nhlstenden.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.nhlstenden.middelware.MyArrayList;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,8 +13,11 @@ import java.util.Map;
 
 public class JsonUtils
 {
-	public static ArrayList<Object> jsonFileToMapGson(Reader reader) throws IOException {
+	public static MyArrayList<Object> jsonFileToMapGson(Reader reader) throws IOException {
 		Gson gson = new Gson();
-		return gson.fromJson(reader,  new TypeToken<List<Object>>() {}.getType());
+		List<Object> list = gson.fromJson(reader, new TypeToken<List<Object>>() {}.getType());
+		MyArrayList<Object> myArrayList = new MyArrayList<>();
+		myArrayList.addAll(list);
+		return myArrayList;
 	}
 }
