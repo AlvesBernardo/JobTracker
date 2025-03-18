@@ -1,33 +1,63 @@
 package com.nhlstenden.controllers;
 
-import java.util.ArrayList;
+import com.nhlstenden.middelware.MyArrayList;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class SharedData
+public class SharedData<T>
 {
-	private ArrayList<Object> sharedArray;
+    private MyArrayList<T> sharedArray;
 
-	public SharedData(ArrayList<Object> data)
-	{
-		this.sharedArray = new ArrayList<>();
-	}
+    public SharedData(MyArrayList<T> data)
+    {
+        this.sharedArray = data;
+    }
 
-	public ArrayList<Object> getSharedArray()
-	{
-		return this.sharedArray;
-	}
+    public MyArrayList<T> getSharedArray()
+    {
+        return this.sharedArray;
+    }
 
-	public void setSharedArray(ArrayList<Object> sharedArray)
-	{
-		this.sharedArray = sharedArray;
-	}
+    public void setSharedArray(MyArrayList<T> sharedArray)
+    {
+        this.sharedArray = sharedArray;
+    }
 
-	public ArrayList<Object> asList() {
-		return sharedArray;
-	}
+    public MyArrayList<T> asList()
+    {
+        return sharedArray;
+    }
 
-	public Queue<Object> asQueue() {
-		return new LinkedList<>(sharedArray);
-	}
+    public Queue<T> asQueue()
+    {
+        return new LinkedList<>(sharedArray);
+    }
+
+    public int getSize()
+    {
+        return this.sharedArray.size();
+
+    }
+
+    public String getString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+
+        int lenght = sharedArray.size();
+
+        for (int i = 0; i < lenght; i++)
+        {
+            T elements = sharedArray.get(i);
+            sb.append(elements.toString());
+            if (i < lenght - 1)
+            {
+                sb.append(", ");
+            }
+        }
+        sb.append("]");
+        return sb.toString();
+    }
 }
+// TODO: do we use java convention or class convention
