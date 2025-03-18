@@ -5,14 +5,20 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.nhlstenden.Main;
 import com.nhlstenden.controllers.BinarySearchUtil;
+
 import com.nhlstenden.controllers.JsonUtils;
 import com.nhlstenden.controllers.SharedData;
+import com.nhlstenden.priorityQueue.ApplicationPriorityQueue;
 import com.nhlstenden.middelware.MyArrayList;
+import com.nhlstenden.services.JobApplicationService;
 import io.javalin.Javalin;
-import java.io.IOException;
+
 import java.io.InputStreamReader;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
 
 public class MainRoute
 {
@@ -24,8 +30,12 @@ public class MainRoute
 			ctx.uploadedFiles("files").forEach(uploadedFile -> {
 				InputStreamReader reader = new InputStreamReader(uploadedFile.content());
 				try {
-					MyArrayList<Object> resultArray = JsonUtils.jsonFileToMapGson(reader);
+          MyArrayList<Object> resultArray = JsonUtils.jsonFileToMapGson(reader);
 					this.data = new SharedData<>(resultArray);
+          					ApplicationPriorityQueue applicationPriorityQueue = new ApplicationPriorityQueue(data.getSharedArray(), 0);
+					// Do something with resultArray...
+					System.out.println(data);
+					System.out.println((applicationPriorityQueue.peek()));
 					System.out.println("Uploaded and parsed");
 					ctx.status(200).result("Completed");
 //					// Do something with resultArray...
@@ -74,4 +84,17 @@ public class MainRoute
 	}
 
 
+        app.get("/application/{id}", ctx ->
+        {
+            String id = ctx.pathParam("id");
+            Object application = jobApplicationService.getApplication(id);
+            if (application != null)
+            {
+                ctx.json(application);
+            } else
+            {
+                ctx.status(404).result("Application not found.");
+            }
+        });
+    }
 }

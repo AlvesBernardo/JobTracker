@@ -1,6 +1,4 @@
 package com.nhlstenden.route;
-import com.nhlstenden.controllers.BayerMooreStringSearch;
-import io.javalin.Javalin;
 
 public class stringSearchRoute
 {

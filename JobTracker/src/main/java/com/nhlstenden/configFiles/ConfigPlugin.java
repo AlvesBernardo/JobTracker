@@ -1,16 +1,13 @@
 package com.nhlstenden.configFiles;
 
-import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
 public class ConfigPlugin
 {
-	private static final Properties properties = new Properties();
-	private static final ClassLoader loader = Thread.currentThread().getContextClassLoader();
+    private static final Properties properties = new Properties();
+    private static final ClassLoader loader = Thread.currentThread().getContextClassLoader();
 
 
 //	InputStream input = loader.getResourceAsStream("/config.properites")
@@ -29,10 +26,12 @@ public class ConfigPlugin
 //	}
 
 
-	public static void configure(JavalinConfig config){
-		config.bundledPlugins.enableCors(cors -> {
-			String allowedOrigins = properties.getProperty("cors.allowedOrigins", "*");
-			cors.addRule(it -> it.anyHost());
-		});
-	}
+    public static void configure(JavalinConfig config)
+    {
+        config.bundledPlugins.enableCors(cors ->
+        {
+            String allowedOrigins = properties.getProperty("cors.allowedOrigins", "*");
+            cors.addRule(it -> it.anyHost());
+        });
+    }
 }
