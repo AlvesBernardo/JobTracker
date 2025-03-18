@@ -61,4 +61,3 @@ public class SharedData<T>
 		return sb.toString();
 	}
 }
-// TODO: do we use java convention or class convention
