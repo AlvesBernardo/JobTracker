@@ -308,6 +308,19 @@ public class MyArrayList<T> implements List<T>
         throw new UnsupportedOperationException();
     }
 
+	@Override
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		for (int i = 0; i < this.size(); i++) {
+			sb.append(this.get(i).toString());
+			if (i < this.size() - 1) {
+				sb.append(", ");
+			}
+		}
+		sb.append("]");
+		return sb.toString();
+	}
 
 //	private static void runProfiler(String title, Timeable timeable, int startN, int endMillis){
 //		Profiler profiler = new Profiler(title, timeable);
