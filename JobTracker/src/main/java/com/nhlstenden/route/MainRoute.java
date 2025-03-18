@@ -1,20 +1,16 @@
 package com.nhlstenden.route;
 
-
-import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
-import com.nhlstenden.Main;
 import com.nhlstenden.controllers.JsonUtils;
 import com.nhlstenden.controllers.SharedData;
 import com.nhlstenden.middelware.MyArrayList;
+import com.nhlstenden.services.JobApplicationService;
 import io.javalin.Javalin;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
-import java.util.Map;
 
-public class MainRoute
-{
+public class MainRoute {
+
+	private JobApplicationService jobApplicationService = new JobApplicationService();
+
 	public void configureRoutes(Javalin app) {
 		app.get("/", ctx -> ctx.result("Hello World"));
 
@@ -24,24 +20,26 @@ public class MainRoute
 				try {
 					MyArrayList<Object> resultArray = JsonUtils.jsonFileToMapGson(reader);
 					SharedData<Object> data = new SharedData<>(resultArray);
-					// Do something with resultArray...
-					System.out.println(data.getString());
-			//		System.out.println(data.getString());
-//					TypeToken<List<Map<String, Object>>> token = new TypeToken<List<Map<String, Object>>>(){};
-//					List<Map<String, Object>> dataList = new Gson().fromJson(reader, token.getType());
-//
-//					MyArrayList<Object> resultArray = new MyArrayList<>();
-//					resultArray.addAll(dataList);
-//
-//					SharedData<Object> data = new SharedData<>(resultArray);
-//					System.out.println(data.getString());
+					System.out.println("Uploaded Data: " + data.getString());
 
+					jobApplicationService.addApplications(resultArray);
+
+					ctx.result("File uploaded and job applications stored successfully.");
 				} catch (Exception e) {
 					e.printStackTrace();
+					ctx.status(500).result("Error processing file.");
 				}
 			});
 		});
+
+		app.get("/application/{id}", ctx -> {
+			String id = ctx.pathParam("id");
+			Object application = jobApplicationService.getApplication(id);
+			if (application != null) {
+				ctx.json(application);
+			} else {
+				ctx.status(404).result("Application not found.");
+			}
+		});
 	}
-
-
 }
