@@ -50,12 +50,17 @@ public class MainRoute
 
 		app.get("/binarySearch", ctx -> {
 			BinarySearchUtil<Object> searchUtil = new BinarySearchUtil<>();
-			String targetPosition = ctx.body();// Read raw string from query parameter
-			if (targetPosition.isEmpty()) {
-				ctx.status(400).result("Invalid search request. A job title is required.");
+			Map<String, String> requestBody = new Gson().fromJson(ctx.body(), Map.class);
+			String key = requestBody.get("key");
+			String value = requestBody.get("value");
+
+			if (key == null || key.trim().isEmpty() || value == null || value.trim().isEmpty()) {
+				ctx.status(400).result("Invalid search request. Both key and value are required.");
 				return;
 			}
-			int resultIndex = searchUtil.binarySearch(data, targetPosition, "position");
+			value = value.trim();
+
+			int resultIndex = searchUtil.binarySearch(data, value, key);
 
 			if (resultIndex != -1) {
 				Object foundJob = data.getSharedArray().get(resultIndex);
