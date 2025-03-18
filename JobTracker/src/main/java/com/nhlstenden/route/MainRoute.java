@@ -1,15 +1,12 @@
 package com.nhlstenden.route;
 
-
-import com.nhlstenden.Main;
 import com.nhlstenden.controllers.JsonUtils;
 import com.nhlstenden.controllers.SharedData;
 import com.nhlstenden.priorityQueue.ApplicationPriorityQueue;
+import com.nhlstenden.middelware.MyArrayList;
+import com.nhlstenden.services.JobApplicationService;
 import io.javalin.Javalin;
-import io.javalin.util.FileUtil;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -37,7 +34,20 @@ public class MainRoute
 				}
 			});
 		});
-	}
 
 
+
+        app.get("/application/{id}", ctx ->
+        {
+            String id = ctx.pathParam("id");
+            Object application = jobApplicationService.getApplication(id);
+            if (application != null)
+            {
+                ctx.json(application);
+            } else
+            {
+                ctx.status(404).result("Application not found.");
+            }
+        });
+    }
 }

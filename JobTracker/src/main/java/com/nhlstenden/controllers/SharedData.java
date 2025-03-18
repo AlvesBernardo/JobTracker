@@ -1,34 +1,44 @@
 package com.nhlstenden.controllers;
 
-import java.util.ArrayList;
+import com.nhlstenden.middelware.MyArrayList;
+
+import java.lang.reflect.Array;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class SharedData<T>
 {
-	private ArrayList<T> sharedArray;
+	private MyArrayList<T> sharedArray;
 
-	public SharedData(ArrayList<T> data)
+	public SharedData(MyArrayList<T> data)
 	{
-		this.sharedArray = new ArrayList<>();
+		this.sharedArray = data;
 	}
 
-	public ArrayList<T> getSharedArray()
+	public MyArrayList<T> getSharedArray()
 	{
 		return this.sharedArray;
 	}
 
-	public void setSharedArray(ArrayList<T> sharedArray)
+	public void setSharedArray(MyArrayList<T> sharedArray)
 	{
 		this.sharedArray = sharedArray;
 	}
 
-	public ArrayList<T> asList() {
+	public MyArrayList<T> asList()
+	{
 		return sharedArray;
 	}
 
-	public Queue<T> asQueue() {
+	public Queue<T> asQueue()
+	{
 		return new LinkedList<>(sharedArray);
+	}
+
+	public int getSize()
+	{
+		return this.sharedArray.size();
+
 	}
 
 	public String getString()
