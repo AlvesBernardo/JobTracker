@@ -6,14 +6,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 
-public class ApplicationPriorityQueue
+public class ApplicationPriorityQueue extends PriorityQueue
 {
     private final PriorityQueue<Object[]> applicationPriorityQueue;
     private final int dateIndex;
-
-    // [ToDo] There is the chance for two objects to have the same time
-    // [ToDo] When there is a new application, it needs to get added to the priority queue
-    // [ToDo] Will the priority queue update if the list from which it is created from updates
 
     public ApplicationPriorityQueue(List<Object[]> applicationList, int dateIndex)
     {
@@ -33,13 +29,12 @@ public class ApplicationPriorityQueue
     public void updateQueue(List<Object[]> applicationList)
     {
         applicationPriorityQueue.clear();
-        for (Object[] array : applicationList)
-        {
-            applicationPriorityQueue.add(array); // Add elements individually
-        }
+        // Add elements individually
+        applicationPriorityQueue.addAll(applicationList);
     }
 
     // retrieve and do not remove
+    @Override
     public Object[] peek()
     {
         return applicationPriorityQueue.peek();
@@ -48,13 +43,25 @@ public class ApplicationPriorityQueue
     // retrieve and remove
     public Object[] poll()
     {
-        return applicationPriorityQueue.poll();
+        if (!applicationPriorityQueue.isEmpty())
+        {
+            Object[] object = new Object[]{};
+            object = applicationPriorityQueue.remove();
+            return object;
+        }
+        return null;
     }
 
     // add a new array element to the queue
-    public void add(Object[] application)
+    public boolean offer(Object[] application)
     {
-        applicationPriorityQueue.add(application);
+        if(applicationPriorityQueue != null)
+        {
+            applicationPriorityQueue.add(application);
+            return true;
+        }
+        return false;
+
     }
 
     // return and removes all elements in priority order
@@ -68,6 +75,7 @@ public class ApplicationPriorityQueue
         return sortedList;
     }
 
+    @Override
     public boolean isEmpty()
     {
         return applicationPriorityQueue.isEmpty();
