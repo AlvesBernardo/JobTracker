@@ -1,43 +1,39 @@
 package com.nhlstenden.middelware;
 
-public class MyHashTable<K, V> {
-
-    private static class Entry<K, V> {
-        K key;
-        V value;
-        Entry<K, V> next;
-
-        public Entry(K key, V value) {
-            this.key = key;
-            this.value = value;
-        }
-    }
+public class MyHashTable<K, V>
+{
 
     private Entry<K, V>[] table;
     private int capacity = 16;
     private int size = 0;
-
     @SuppressWarnings("unchecked")
-    public MyHashTable() {
+    public MyHashTable()
+    {
         table = new Entry[capacity];
     }
 
-    private int getIndex(K key) {
+    private int getIndex(K key)
+    {
         return Math.abs(key.hashCode()) % capacity;
     }
 
-    public void put(K key, V value) {
+    public void put(K key, V value)
+    {
         int index = getIndex(key);
         Entry<K, V> newEntry = new Entry<>(key, value);
 
-        if (table[index] == null) {
+        if (table[index] == null)
+        {
             table[index] = newEntry;
             size++;
-        } else {
+        } else
+        {
             Entry<K, V> current = table[index];
             Entry<K, V> prev = null;
-            while (current != null) {
-                if (current.key.equals(key)) {
+            while (current != null)
+            {
+                if (current.key.equals(key))
+                {
                     current.value = value;
                     return;
                 }
@@ -49,12 +45,15 @@ public class MyHashTable<K, V> {
         }
     }
 
-    public V get(K key) {
+    public V get(K key)
+    {
         int index = getIndex(key);
         Entry<K, V> current = table[index];
 
-        while (current != null) {
-            if (current.key.equals(key)) {
+        while (current != null)
+        {
+            if (current.key.equals(key))
+            {
                 return current.value;
             }
             current = current.next;
@@ -62,20 +61,26 @@ public class MyHashTable<K, V> {
         return null;
     }
 
-    public boolean containsKey(K key) {
+    public boolean containsKey(K key)
+    {
         return get(key) != null;
     }
 
-    public V remove(K key) {
+    public V remove(K key)
+    {
         int index = getIndex(key);
         Entry<K, V> current = table[index];
         Entry<K, V> prev = null;
 
-        while (current != null) {
-            if (current.key.equals(key)) {
-                if (prev == null) {
+        while (current != null)
+        {
+            if (current.key.equals(key))
+            {
+                if (prev == null)
+                {
                     table[index] = current.next;
-                } else {
+                } else
+                {
                     prev.next = current.next;
                 }
                 size--;
@@ -87,7 +92,21 @@ public class MyHashTable<K, V> {
         return null;
     }
 
-    public int size() {
+    public int size()
+    {
         return size;
+    }
+
+    private static class Entry<K, V>
+    {
+        K key;
+        V value;
+        Entry<K, V> next;
+
+        public Entry(K key, V value)
+        {
+            this.key = key;
+            this.value = value;
+        }
     }
 }
