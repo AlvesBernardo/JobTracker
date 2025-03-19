@@ -31,7 +31,8 @@ public class BinarySearchUtil<T> {
 	private String getPositionFromObject(T object, String key) {
 		if (object instanceof Map) {
 			Map<String, Object> map = (Map<String, Object>) object;
-			return (String) map.get("position");
+			System.out.println("Retrieved value for key " + key + ": " + map.get(key));
+			return (String) map.get(key);
 		}
 		return "";  // Return empty if no match
 	}
