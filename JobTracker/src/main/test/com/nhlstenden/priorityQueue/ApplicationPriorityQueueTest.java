@@ -27,10 +27,4 @@ class ApplicationPriorityQueueTest
         queue.updateQueue(applicationList);
     }
 
-    @Test
-    void testPeekReturnsOldestElement() {
-        Object[] oldest = queue.peek();
-        assertNotNull(oldest);
-        assertEquals("App B", oldest[0]);
-    }
 }

@@ -10,19 +10,20 @@ import com.nhlstenden.controllers.JsonUtils;
 import com.nhlstenden.controllers.SharedData;
 import com.nhlstenden.priorityQueue.ApplicationPriorityQueue;
 import com.nhlstenden.middelware.MyArrayList;
+import com.nhlstenden.priorityQueue.DateComparator;
+import com.nhlstenden.priorityQueue.DateExtractor;
+import com.nhlstenden.priorityQueue.MapDateExtractor;
 import com.nhlstenden.services.JobApplicationService;
 import io.javalin.Javalin;
 
 import java.io.InputStreamReader;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class MainRoute
 {
 	private SharedData<Object> data;
+	private JobApplicationService jobApplicationService = new JobApplicationService();
 	public void configureRoutes(Javalin app) {
 		app.get("/", ctx -> ctx.result("Hello World"));
 
@@ -30,9 +31,18 @@ public class MainRoute
 			ctx.uploadedFiles("files").forEach(uploadedFile -> {
 				InputStreamReader reader = new InputStreamReader(uploadedFile.content());
 				try {
-          MyArrayList<Object> resultArray = JsonUtils.jsonFileToMapGson(reader);
+          			MyArrayList<Object> resultArray = JsonUtils.jsonFileToMapGson(reader);
 					this.data = new SharedData<>(resultArray);
-          					ApplicationPriorityQueue applicationPriorityQueue = new ApplicationPriorityQueue(data.getSharedArray(), 0);
+
+					DateExtractor<Map<String, Object>> dateExtractor = new MapDateExtractor();
+					Comparator<Map<String, Object>> comparator = new DateComparator<>(dateExtractor);
+
+					// Cast the list to the appropriate type
+					List<Map<String, Object>> applicationList = (List<Map<String, Object>>) (List<?>) data.getSharedArray();
+
+					// Instantiate ApplicationPriorityQueue
+					ApplicationPriorityQueue<Map<String, Object>> applicationPriorityQueue = new ApplicationPriorityQueue<>(applicationList, dateExtractor, comparator);
+
 					// Do something with resultArray...
 					System.out.println(data);
 					System.out.println((applicationPriorityQueue.peek()));
@@ -80,21 +90,19 @@ public class MainRoute
 				ctx.status(404).result("Job not found.");
 				System.out.println("Job not found.");
 			}
-		});;
+		});
+
+		app.get("/application/{id}", ctx ->
+		{
+			String id = ctx.pathParam("id");
+			Object application = jobApplicationService.getApplication(id);
+			if (application != null)
+			{
+				ctx.json(application);
+			} else
+			{
+				ctx.status(404).result("Application not found.");
+			}
+		});
 	}
-
-
-        app.get("/application/{id}", ctx ->
-        {
-            String id = ctx.pathParam("id");
-            Object application = jobApplicationService.getApplication(id);
-            if (application != null)
-            {
-                ctx.json(application);
-            } else
-            {
-                ctx.status(404).result("Application not found.");
-            }
-        });
-    }
 }
