@@ -34,14 +34,11 @@ public class MainRoute
           			MyArrayList<Object> resultArray = JsonUtils.jsonFileToMapGson(reader);
 					this.data = new SharedData<>(resultArray);
 
-					DateExtractor<Map<String, Object>> dateExtractor = new MapDateExtractor();
-					Comparator<Map<String, Object>> comparator = new DateComparator<>(dateExtractor);
-
 					// Cast the list to the appropriate type
-					List<Map<String, Object>> applicationList = (List<Map<String, Object>>) (List<?>) data.getSharedArray();
+					List<Comparable> applicationList = (List<Comparable>) (List<?>) data.getSharedArray();
 
 					// Instantiate ApplicationPriorityQueue
-					ApplicationPriorityQueue<Map<String, Object>> applicationPriorityQueue = new ApplicationPriorityQueue<>(applicationList, dateExtractor, comparator);
+					ApplicationPriorityQueue<Comparable> applicationPriorityQueue = new ApplicationPriorityQueue<>(applicationList);
 
 					// Do something with resultArray...
 					System.out.println(data);

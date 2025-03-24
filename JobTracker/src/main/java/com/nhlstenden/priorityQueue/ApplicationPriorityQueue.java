@@ -7,16 +7,12 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-public class ApplicationPriorityQueue<T>
+public class ApplicationPriorityQueue<T extends Comparable<T>>
 {
     private List<T> heap;
-    private DateExtractor<T> dateExtractor;
-    private Comparator<T> comparator;
 
-    public ApplicationPriorityQueue(List<T> applicationList, DateExtractor<T> dateExtractor, Comparator<T> comparator)
+    public ApplicationPriorityQueue(List<T> applicationList)
     {
-        this.dateExtractor = dateExtractor;
-        this.comparator = comparator;
         this.heap = new MyArrayList<>();
         buildHeap(applicationList);
     }
@@ -123,7 +119,7 @@ public class ApplicationPriorityQueue<T>
     //Comparator for two objects based on LocalDate
     private int compare(T a, T b)
     {
-        return dateExtractor.getDate(a).compareTo(dateExtractor.getDate(b));
+        return a.compareTo(b);
     }
 
     //Swapping two elements in the heap
