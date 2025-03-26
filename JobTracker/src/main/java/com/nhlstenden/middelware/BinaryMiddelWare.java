@@ -15,6 +15,8 @@ public class BinaryMiddelWare<T>
 
 		value = value.trim();
 
+		System.out.println("value " + value);
+
 		int resultIndex = searchUtil.binarySearch(data, value,key);
 
 		if (resultIndex != -1){

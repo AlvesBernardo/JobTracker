@@ -52,7 +52,7 @@ public class SearchRoutes<T>
 
 		// Bloom Filter Add Route
 		app.post("/bloom/add", ctx -> {
-			T element = new Gson().fromJson(ctx.body(), new TypeToken<T>() {}.getType());
+			T element = new Gson().fromJson(ctx.body(), new TypeToken<T>(){}.getType());
 			this.bloomFilter.add(element);
 			ctx.status(200).result("Element added to Bloom filter.");
 		});

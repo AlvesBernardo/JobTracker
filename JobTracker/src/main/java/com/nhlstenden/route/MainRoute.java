@@ -17,6 +17,7 @@ public class MainRoute<T>
 	private SharedData<T> data;
 	private SearchRoutes<T> searchRoutes;
 	private BloomFilterMiddelware<T> bloomFilter;
+	private boolean routesConfigured = false;
 	public void configureRoutes(Javalin app)
 	{
 		app.post("/upload", ctx ->
@@ -30,11 +31,18 @@ public class MainRoute<T>
 					{
 					}.getType(); // Define the Type
 					MyArrayList<T> resultArray = JsonUtils.jsonFileToMapGson(reader, type);
-					this.data = new SharedData<>(resultArray);
-					ctx.status(200).result("Completed");
 
-					searchRoutes = new SearchRoutes<>(data);
-					searchRoutes.configureRoutes(app);
+					if (this.data == null){
+						this.data = new SharedData<>(resultArray);
+					} else {
+						this.data.getSharedArray().addAll(resultArray);
+					}
+					ctx.status(200).result("Completed");
+					if (!routesConfigured) {
+						searchRoutes = new SearchRoutes<>(data);
+						searchRoutes.configureRoutes(app);
+						this.routesConfigured = true;
+					}
 					this.bloomFilter = new BloomFilterMiddelware<>(resultArray.size(), new Function[]{Object::hashCode});
 					for (T element : resultArray)
 					{
@@ -51,7 +59,6 @@ public class MainRoute<T>
 	}
 	public SharedData<T> getSharedData () {
 		return data;
-
 
 	}
 
