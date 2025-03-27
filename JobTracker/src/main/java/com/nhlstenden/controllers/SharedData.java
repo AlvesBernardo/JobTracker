@@ -1,10 +1,11 @@
 package com.nhlstenden.controllers;
 
+import com.google.gson.Gson;
 import com.nhlstenden.middelware.MyArrayList;
+import com.nhlstenden.utils.MyHashMap;
 
 import java.lang.reflect.Array;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class SharedData<T>
 {
@@ -59,5 +60,21 @@ public class SharedData<T>
 		}
 		sb.append("]");
 		return sb.toString();
+	}
+
+	public void sortByDate(){
+		Collections.sort(this.sharedArray, new Comparator<T>(){
+			@Override
+			public int compare(T o1, T o2) {
+				if (o1 instanceof MyHashMap && o2 instanceof MyHashMap) {
+					MyHashMap<String, T> map1 = (MyHashMap<String, T>) o1;
+					MyHashMap<String, T> map2 = (MyHashMap<String, T>) o2;
+					Date date1 = new Gson().fromJson(map1.get("date_applied").toString(), Date.class);
+					Date date2 = new Gson().fromJson(map2.get("date_applied").toString(), Date.class);
+					return date2.compareTo(date1); // Sort by newest date first
+				}
+				return 0;
+			}
+		});
 	}
 }
