@@ -1,7 +1,12 @@
 package com.nhlstenden.middelware;
 
-import java.util.BitSet;
+
+import com.google.gson.Gson;
+import com.nhlstenden.utils.MyHashMap;
+
+import java.util.List;
 import java.util.function.Function;
+import java.util.*;
 
 public class BloomFilterMiddelware<T>
 {
@@ -10,7 +15,7 @@ public class BloomFilterMiddelware<T>
 
     public BloomFilterMiddelware(int size, Function<T, Integer>[] hashFunction)
     {
-        this.bitSet = new BitSet();
+        this.bitSet = new BitSet(size);
         this.hashFunction = hashFunction;
     }
 
@@ -35,4 +40,5 @@ public class BloomFilterMiddelware<T>
         }
         return true;
     }
+
 }
