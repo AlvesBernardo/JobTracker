@@ -5,22 +5,22 @@ import com.nhlstenden.middelware.MyHashTable;
 
 import java.util.Map;
 
-public class JobApplicationService
+public class JobApplicationService<T>
 {
-    private MyHashTable<String, Map<String, Object>> jobApplications;
+    private MyHashTable<String, Map<String, T>> jobApplications;
 
     public JobApplicationService()
     {
         jobApplications = new MyHashTable<>();
     }
 
-    public void addApplications(MyArrayList<Object> applications)
+    public void addApplications(MyArrayList<T> applications)
     {
         for (Object obj : applications)
         {
             if (obj instanceof Map)
             {
-                Map<String, Object> app = (Map<String, Object>) obj;
+                Map<String, T> app = (Map<String, T>) obj;
                 Object idObj = app.get("id");
                 if (idObj != null)
                 {
@@ -32,7 +32,7 @@ public class JobApplicationService
         }
     }
 
-    public Map<String, Object> getApplication(String id)
+    public Map<String, T> getApplication(String id)
     {
         System.out.println("Looking up application with id: " + id);
         return jobApplications.get(id);

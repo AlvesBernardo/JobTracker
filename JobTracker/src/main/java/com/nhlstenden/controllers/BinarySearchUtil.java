@@ -21,9 +21,19 @@ public class BinarySearchUtil<T> {
 			String midValue = getPositionFromObject(midObject, key).toLowerCase();
 
 			int comparison = midValue.compareTo(target);
+			System.out.println("Low: " + low + ", Mid: " + mid + ", High: " + high + ", MidValue: " + midValue + ", Target: " + target + ", Comparison: " + comparison);
 			if (comparison == 0) return mid;  // Found
 			if (comparison < 0) low = mid + 1;
 			else high = mid - 1;
+		}
+
+		// Check for partial match if exact match is not found
+		for (int i = 0; i < arrayList.size(); i++) {
+			T obj = arrayList.get(i);
+			String value = getPositionFromObject(obj, key).toLowerCase();
+			if (value.contains(target)) {
+				return i;  // Found a partial match
+			}
 		}
 		return -1;  // Not found
 	}
@@ -31,7 +41,8 @@ public class BinarySearchUtil<T> {
 	private String getPositionFromObject(T object, String key) {
 		if (object instanceof Map) {
 			Map<String, Object> map = (Map<String, Object>) object;
-			return (String) map.get("position");
+			System.out.println("Retrieved value for key " + key + ": " + map.get(key));
+			return (String) map.get(key);
 		}
 		return "";  // Return empty if no match
 	}
