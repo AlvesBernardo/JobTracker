@@ -80,7 +80,8 @@ public class MainRoute<T>
 						searchRoutes.configureRoutes(app);
 						sortAlgo = new SortAlgo<>(data);
 						sortAlgo.configureRoutes(app);
-						priorityQueueRoute = new PriorityQueueRoute<T>(data);
+						priorityQueueRoute = new PriorityQueueRoute<>(data);
+						priorityQueueRoute.configureRoutes(app);
 						this.routesConfigured = true;
 					}
 				} catch (Exception e)
