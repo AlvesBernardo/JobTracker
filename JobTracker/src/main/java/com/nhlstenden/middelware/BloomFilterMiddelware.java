@@ -41,4 +41,13 @@ public class BloomFilterMiddelware<T>
         return true;
     }
 
+    public void set(T element){
+        add(element);
+    }
+    //having a delete method is not needed in a bloom filter
+    // its a probabilistic data structure
+    //it does not support deletion
+    // it can have false positives but not false negatives
+
+
 }
