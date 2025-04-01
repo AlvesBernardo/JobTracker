@@ -10,6 +10,17 @@ import io.javalin.Javalin;
 
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.util.Comparator;
+import java.util.function.Function;
+
+public class MainRoute<T>
+{
+	private SharedData<T> data;
+	private SearchRoutes<T> searchRoutes;
+	private SortAlgo<T> sortAlgo;
+	private BloomFilterMiddelware<T> bloomFilter;
+	private PriorityQueueRoute<T> priorityQueueRoute;
+	private boolean routesConfigured = false;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -60,6 +71,7 @@ public class MainRoute<T> {
                                                 }
                                         }
 
+
                                         jobApplicationService.addApplications(this.data.getSharedArray());
 
                                         ctx.status(200).result("Completed");
@@ -68,6 +80,25 @@ public class MainRoute<T> {
                                                 searchRoutes = new SearchRoutes<>(data);
                                                 searchRoutes.configureRoutes(app);
 
+					ctx.status(200).result("Completed");
+					if (!routesConfigured)
+					{
+						searchRoutes = new SearchRoutes<>(data);
+						searchRoutes.configureRoutes(app);
+						sortAlgo = new SortAlgo<>(data);
+						sortAlgo.configureRoutes(app);
+						priorityQueueRoute = new PriorityQueueRoute<>(data);
+						priorityQueueRoute.configureRoutes(app);
+						this.routesConfigured = true;
+					}
+				} catch (Exception e)
+				{
+					e.printStackTrace();
+					ctx.status(500).result("Missing file");
+				}
+			});
+		});
+	}
                                                 sortAlgo = new SortAlgo<>(data);
                                                 sortAlgo.configureRoutes(app);
 
