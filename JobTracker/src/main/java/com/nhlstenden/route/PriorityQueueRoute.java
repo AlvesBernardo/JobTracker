@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class PriorityQueueRoute<T extends Comparable<T>>
+public class PriorityQueueRoute<T>
 {
     private final ApplicationPriorityQueue<T> priorityQueue;
 

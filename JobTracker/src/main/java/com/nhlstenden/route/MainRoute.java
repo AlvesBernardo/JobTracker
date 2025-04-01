@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 import java.util.Comparator;
 import java.util.function.Function;
 
-public class MainRoute<T extends Comparable<T>>
+public class MainRoute<T>
 {
 	private SharedData<T> data;
 	private SearchRoutes<T> searchRoutes;

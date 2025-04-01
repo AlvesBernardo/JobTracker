@@ -8,7 +8,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-public class ApplicationPriorityQueue<T extends Comparable<T>>
+public class ApplicationPriorityQueue<T>
 {
     private List<T> heap;
     private final HeapSorter<T> heapSorter;
