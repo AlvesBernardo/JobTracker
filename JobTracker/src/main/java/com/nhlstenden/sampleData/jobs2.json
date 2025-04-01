@@ -1,0 +1,162 @@
+[
+  {
+    "id": 21,
+    "company": "Nike",
+    "position": "Brand Manager",
+    "date_applied": "2024-02-28",
+    "status": "Interview Scheduled",
+    "priority": 5
+  },
+  {
+    "id": 22,
+    "company": "Coca-Cola",
+    "position": "Marketing Analyst",
+    "date_applied": "2024-03-05",
+    "status": "Pending",
+    "priority": 3
+  },
+  {
+    "id": 23,
+    "company": "Disney",
+    "position": "Social Media Manager",
+    "date_applied": "2024-02-15",
+    "status": "Technical Interview",
+    "priority": 4
+  },
+  {
+    "id": 24,
+    "company": "PepsiCo",
+    "position": "Content Strategist",
+    "date_applied": "2024-03-02",
+    "status": "Application Received",
+    "priority": 3
+  },
+  {
+    "id": 25,
+    "company": "L'Oréal",
+    "position": "Digital Marketing Specialist",
+    "date_applied": "2024-02-22",
+    "status": "Pending",
+    "priority": 4
+  },
+  {
+    "id": 26,
+    "company": "Samsung",
+    "position": "Market Research Analyst",
+    "date_applied": "2024-03-10",
+    "status": "Interview Scheduled",
+    "priority": 5
+  },
+  {
+    "id": 27,
+    "company": "Red Bull",
+    "position": "Event Marketing Coordinator",
+    "date_applied": "2024-02-18",
+    "status": "Technical Interview",
+    "priority": 4
+  },
+  {
+    "id": 28,
+    "company": "Netflix",
+    "position": "Creative Marketing Manager",
+    "date_applied": "2024-03-06",
+    "status": "Application Received",
+    "priority": 3
+  },
+  {
+    "id": 29,
+    "company": "Spotify",
+    "position": "Growth Marketing Manager",
+    "date_applied": "2024-02-25",
+    "status": "Pending",
+    "priority": 4
+  },
+  {
+    "id": 30,
+    "company": "Apple",
+    "position": "Advertising Specialist",
+    "date_applied": "2024-03-01",
+    "status": "Technical Interview",
+    "priority": 5
+  },
+  {
+    "id": 31,
+    "company": "Microsoft",
+    "position": "SEO Specialist",
+    "date_applied": "2024-02-28",
+    "status": "Pending",
+    "priority": 3
+  },
+  {
+    "id": 32,
+    "company": "Amazon",
+    "position": "Product Marketing Manager",
+    "date_applied": "2024-03-08",
+    "status": "Interview Scheduled",
+    "priority": 5
+  },
+  {
+    "id": 33,
+    "company": "Tesla",
+    "position": "Public Relations Manager",
+    "date_applied": "2024-02-20",
+    "status": "Rejected",
+    "priority": 2
+  },
+  {
+    "id": 34,
+    "company": "Adidas",
+    "position": "Influencer Marketing Manager",
+    "date_applied": "2024-03-07",
+    "status": "Application Received",
+    "priority": 3
+  },
+  {
+    "id": 35,
+    "company": "Meta",
+    "position": "Performance Marketing Manager",
+    "date_applied": "2024-02-14",
+    "status": "Technical Interview",
+    "priority": 5
+  },
+  {
+    "id": 36,
+    "company": "LinkedIn",
+    "position": "Marketing Automation Specialist",
+    "date_applied": "2024-02-21",
+    "status": "Pending",
+    "priority": 4
+  },
+  {
+    "id": 37,
+    "company": "Airbnb",
+    "position": "Partnership Marketing Manager",
+    "date_applied": "2024-03-03",
+    "status": "Interview Scheduled",
+    "priority": 4
+  },
+  {
+    "id": 38,
+    "company": "Uber",
+    "position": "Email Marketing Specialist",
+    "date_applied": "2024-02-17",
+    "status": "Pending",
+    "priority": 3
+  },
+  {
+    "id": 39,
+    "company": "Snapchat",
+    "position": "Brand Marketing Associate",
+    "date_applied": "2024-03-04",
+    "status": "Application Received",
+    "priority": 3
+  },
+  {
+    "id": 40,
+    "company": "Pinterest",
+    "position": "Creative Strategist",
+    "date_applied": "2024-02-27",
+    "status": "Technical Interview",
+    "priority": 5
+  }
+]
