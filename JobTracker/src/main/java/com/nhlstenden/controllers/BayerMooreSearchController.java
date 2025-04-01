@@ -1,27 +1,11 @@
 package com.nhlstenden.controllers;
 
 import com.nhlstenden.middelware.MyArrayList;
-import io.javalin.http.Context;
 
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 public class BayerMooreSearchController<T> {
-
-
-    public void searchByKeyAndSendResponse(MyArrayList<T> data, String key, String pattern, Context ctx) {
-        long startTime = System.currentTimeMillis();
-        MyArrayList<Map<String, T>> results = searchByKey(data, key, pattern);
-        long endTime = System.currentTimeMillis();
-        long executionTime = endTime - startTime;
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("results", results);
-        response.put("executionTime", executionTime);
-
-        ctx.json(response);
-    }
 
     public MyArrayList<Map<String, T>> searchByKey(MyArrayList<T> data, String key, String pattern) {
         MyArrayList<Map<String, T>> results = new MyArrayList<>();

@@ -9,12 +9,9 @@ import java.util.Map;
 
 public class BayerMooreRoute<T> {
     private final SharedData<T> sharedData;
-    private BayerMooreSearchController<T> bayerMooreSearchController;
 
     public BayerMooreRoute(SharedData<T> sharedData) {
         this.sharedData = sharedData;
-        this.bayerMooreSearchController = new BayerMooreSearchController<>();
-
     }
 
     public void configureRoutes(Javalin app) {
@@ -34,7 +31,6 @@ public class BayerMooreRoute<T> {
                 ctx.status(404).result("No applications matched with pattern '" + value + "' in field '" + key + "'");
             } else {
                 ctx.json(results);
-                bayerMooreSearchController.searchByKeyAndSendResponse(sharedData.getSharedArray(), key, value, ctx);
                 ctx.status(200);
             }
         });
