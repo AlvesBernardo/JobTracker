@@ -25,12 +25,18 @@ public class BayerMooreRoute<T> {
             }
 
             BayerMooreSearchController<T> controller = new BayerMooreSearchController<>();
+            long startTime = System.currentTimeMillis();
             MyArrayList<Map<String, T>> results = controller.searchByKey(sharedData.getSharedArray(), key, value);
-
+            long endTime = System.currentTimeMillis();
+            long executionTime = endTime - startTime;
+            Map<String, Object> response = Map.of(
+                    "results", results,
+                    "executionTime", executionTime
+            );
             if (results.isEmpty()) {
                 ctx.status(404).result("No applications matched with pattern '" + value + "' in field '" + key + "'");
             } else {
-                ctx.json(results);
+                ctx.json(response);
                 ctx.status(200);
             }
         });

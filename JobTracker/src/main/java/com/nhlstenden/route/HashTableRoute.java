@@ -45,7 +45,7 @@ public class HashTableRoute<T> {
 			if (results.isEmpty()) {
 				ctx.status(404).result("No applications found for key '" + key + "' with value like '" + value + "'.");
 			} else {
-				ctx.json(results);
+				ctx.json(response);
 				ctx.status(200);
 			}
 		});
