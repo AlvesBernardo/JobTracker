@@ -10,14 +10,16 @@ import io.javalin.Javalin;
 
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.util.Comparator;
 import java.util.function.Function;
 
-public class MainRoute<T>
+public class MainRoute<T extends Comparable<T>>
 {
 	private SharedData<T> data;
 	private SearchRoutes<T> searchRoutes;
 	private SortAlgo<T> sortAlgo;
 	private BloomFilterMiddelware<T> bloomFilter;
+	private PriorityQueueRoute<T> priorityQueueRoute;
 	private boolean routesConfigured = false;
 
 
@@ -78,6 +80,7 @@ public class MainRoute<T>
 						searchRoutes.configureRoutes(app);
 						sortAlgo = new SortAlgo<>(data);
 						sortAlgo.configureRoutes(app);
+						priorityQueueRoute = new PriorityQueueRoute<T>(data);
 						this.routesConfigured = true;
 					}
 				} catch (Exception e)

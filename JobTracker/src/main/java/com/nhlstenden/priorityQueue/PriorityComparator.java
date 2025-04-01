@@ -3,22 +3,20 @@ package com.nhlstenden.priorityQueue;
 import com.nhlstenden.utils.MyHashMap;
 
 import java.util.Comparator;
-import java.util.Date;
 
-public class DateComparator
-{
+public class PriorityComparator {
     @SuppressWarnings("unchecked")
     public static <T> Comparator<T> getDefaultComparator() {
         return (o1, o2) -> {
-            // Handle MyHashMap comparison by "date_applied"
+            // Handle MyHashMap comparison by "priority"
             if (o1 instanceof MyHashMap && o2 instanceof MyHashMap) {
                 MyHashMap<String, ?> map1 = (MyHashMap<String, ?>) o1;
                 MyHashMap<String, ?> map2 = (MyHashMap<String, ?>) o2;
 
-                if (map1.containsKey("date_applied") && map2.containsKey("date_applied")) {
-                    Date date1 = new Date(map1.get("date_applied").toString());
-                    Date date2 = new Date(map2.get("date_applied").toString());
-                    return date1.compareTo(date2); // Sort by date
+                if (map1.containsKey("priority") && map2.containsKey("priority")) {
+                    Integer priority1 = Integer.parseInt(map1.get("priority").toString());
+                    Integer priority2 = Integer.parseInt(map2.get("priority").toString());
+                    return priority1.compareTo(priority2); // Compare by priority
                 }
             }
 
