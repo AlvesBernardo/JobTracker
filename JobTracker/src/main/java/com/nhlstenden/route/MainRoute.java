@@ -67,8 +67,13 @@ public class MainRoute<T> {
                                         if (!routesConfigured) {
                                                 searchRoutes = new SearchRoutes<>(data);
                                                 searchRoutes.configureRoutes(app);
+
                                                 sortAlgo = new SortAlgo<>(data);
                                                 sortAlgo.configureRoutes(app);
+
+                                                BayerMooreRoute<T> bmRoute = new BayerMooreRoute<>(this.data);
+                                                bmRoute.configureRoutes(app);
+
                                                 this.routesConfigured = true;
                                         }
                                 } catch (Exception e) {

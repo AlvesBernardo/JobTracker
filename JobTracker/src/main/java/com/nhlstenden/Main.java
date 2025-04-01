@@ -1,6 +1,7 @@
 package com.nhlstenden;
 
 import com.nhlstenden.configFiles.ConfigPlugin;
+import com.nhlstenden.route.BayerMooreRoute;
 import com.nhlstenden.route.HashTableRoute;
 import com.nhlstenden.route.MainRoute;
 import com.nhlstenden.services.JobApplicationService;
