@@ -1,21 +1,45 @@
 package com.nhlstenden.route;
 
+import com.nhlstenden.middelware.MyArrayList;
 import com.nhlstenden.services.JobApplicationService;
 import io.javalin.Javalin;
 
-public class HashTableRoute<T>
-{
-	private JobApplicationService<T> jobApplicationService = new JobApplicationService();
+import java.util.Map;
 
-	public void configHashTableRoutes(Javalin app){
+public class HashTableRoute<T> {
+	private final JobApplicationService<T> jobApplicationService;
+
+	public HashTableRoute(JobApplicationService<T> jobApplicationService) {
+		this.jobApplicationService = jobApplicationService;
+	}
+
+	public void configHashTableRoutes(Javalin app) {
 		app.get("/application/{id}", ctx -> {
 			String id = ctx.pathParam("id");
-			Object application = jobApplicationService.getApplication(id);
-			if (application != null){
+			Map<String, T> application = jobApplicationService.getApplication(id);
+			if (application != null) {
 				ctx.json(application);
 				ctx.status(200);
-			}else {
+			} else {
 				ctx.status(404).result("Application not found.");
+			}
+		});
+
+		app.get("/applications/search", ctx -> {
+			String key = ctx.queryParam("key");
+			String value = ctx.queryParam("value");
+
+			if (key == null || value == null) {
+				ctx.status(400).result("Missing key or value for search.");
+				return;
+			}
+
+			MyArrayList<Map<String, T>> results = jobApplicationService.searchApplications(key, value);
+			if (results.isEmpty()) {
+				ctx.status(404).result("No applications found for key '" + key + "' with value like '" + value + "'.");
+			} else {
+				ctx.json(results);
+				ctx.status(200);
 			}
 		});
 	}

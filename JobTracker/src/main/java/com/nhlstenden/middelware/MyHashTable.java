@@ -109,4 +109,20 @@ public class MyHashTable<K, V>
             this.value = value;
         }
     }
+
+    public V getByIndex(int index) {
+        int count = 0;
+        for (Entry<K, V> bucket : table) {
+            Entry<K, V> current = bucket;
+            while (current != null) {
+                if (count == index) {
+                    return current.value;
+                }
+                count++;
+                current = current.next;
+            }
+        }
+        return null;
+    }
+
 }
