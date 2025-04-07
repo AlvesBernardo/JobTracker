@@ -1,12 +1,8 @@
 package com.nhlstenden.middelware;
 
 
-import com.google.gson.Gson;
-import com.nhlstenden.utils.MyHashMap;
-
-import java.util.List;
+import java.util.BitSet;
 import java.util.function.Function;
-import java.util.*;
 
 public class BloomFilterMiddelware<T>
 {
@@ -41,7 +37,8 @@ public class BloomFilterMiddelware<T>
         return true;
     }
 
-    public void set(T element){
+    public void set(T element)
+    {
         add(element);
     }
     //having a delete method is not needed in a bloom filter

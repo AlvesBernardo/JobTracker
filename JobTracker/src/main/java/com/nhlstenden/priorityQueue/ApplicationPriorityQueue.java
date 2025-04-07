@@ -3,15 +3,13 @@ package com.nhlstenden.priorityQueue;
 import com.nhlstenden.controllers.HeapSorter;
 import com.nhlstenden.middelware.MyArrayList;
 
-import java.time.LocalDate;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 public class ApplicationPriorityQueue<T>
 {
-    private List<T> heap;
     private final HeapSorter<T> heapSorter;
+    private final List<T> heap;
 
     public ApplicationPriorityQueue(List<T> applicationList, Comparator<T> comparator)
     {
@@ -21,14 +19,15 @@ public class ApplicationPriorityQueue<T>
         this.heap.addAll(applicationList);
     }
 
-    public List<T> getHeap() {
+    public List<T> getHeap()
+    {
         return heap;
     }
 
     public void add(T application)
     {
         heap.add(application);
-        heapSorter.heapifyUp(heap,heap.size() - 1);
+        heapSorter.heapifyUp(heap, heap.size() - 1);
     }
 
     // retrieve and do not remove
@@ -45,10 +44,10 @@ public class ApplicationPriorityQueue<T>
         T root = heap.get(0);
         T lastElement = heap.remove(heap.size() - 1);
 
-        if (! heap.isEmpty())
+        if (!heap.isEmpty())
         {
             heap.set(0, lastElement);
-            heapSorter.heapifyDown(heap,0, heap.size());
+            heapSorter.heapifyDown(heap, 0, heap.size());
         }
 
         return root;

@@ -7,19 +7,24 @@ import io.javalin.Javalin;
 
 import java.util.Map;
 
-public class BayerMooreRoute<T> {
+public class BayerMooreRoute<T>
+{
     private final SharedData<T> sharedData;
 
-    public BayerMooreRoute(SharedData<T> sharedData) {
+    public BayerMooreRoute(SharedData<T> sharedData)
+    {
         this.sharedData = sharedData;
     }
 
-    public void configureRoutes(Javalin app) {
-        app.get("/applications/bayer-search", ctx -> {
+    public void configureRoutes(Javalin app)
+    {
+        app.get("/applications/bayer-search", ctx ->
+        {
             String key = ctx.queryParam("key");
             String value = ctx.queryParam("value");
 
-            if (key == null || value == null) {
+            if (key == null || value == null)
+            {
                 ctx.status(400).result("Missing 'key' or 'value' query parameter.");
                 return;
             }
@@ -33,9 +38,11 @@ public class BayerMooreRoute<T> {
                     "results", results,
                     "executionTime", executionTime
             );
-            if (results.isEmpty()) {
+            if (results.isEmpty())
+            {
                 ctx.status(404).result("No applications matched with pattern '" + value + "' in field '" + key + "'");
-            } else {
+            } else
+            {
                 ctx.json(response);
                 ctx.status(200);
             }

@@ -36,8 +36,7 @@ public class PriorityQueueRoute<T>
                 if (priorityQueue.getHeap().isEmpty() || priorityQueue.getHeap().get(0) instanceof MyHashMap)
                 {
                     element = (T) new Gson().fromJson(rawBody, MyHashMap.class);
-                }
-                else
+                } else
                 {
                     // Otherwise, assume T is a simple type and parse it directly
                     element = (T) rawBody;
@@ -71,8 +70,7 @@ public class PriorityQueueRoute<T>
                 response.put("element", element);
                 response.put("executionTime", executionTime);
                 ctx.json(response);
-            }
-            else
+            } else
             {
                 ctx.status(404).result("No elements in the queue.");
             }
@@ -91,8 +89,7 @@ public class PriorityQueueRoute<T>
                 response.put("element", element);
                 response.put("executionTime", executionTime);
                 ctx.json(response);
-            }
-            else
+            } else
             {
                 ctx.status(404).result("No elements in the queue.");
             }

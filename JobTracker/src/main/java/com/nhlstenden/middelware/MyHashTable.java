@@ -3,9 +3,10 @@ package com.nhlstenden.middelware;
 public class MyHashTable<K, V>
 {
 
-    private Entry<K, V>[] table;
-    private int capacity = 16;
+    private final Entry<K, V>[] table;
+    private final int capacity = 16;
     private int size = 0;
+
     @SuppressWarnings("unchecked")
     public MyHashTable()
     {
@@ -97,6 +98,25 @@ public class MyHashTable<K, V>
         return size;
     }
 
+    public V getByIndex(int index)
+    {
+        int count = 0;
+        for (Entry<K, V> bucket : table)
+        {
+            Entry<K, V> current = bucket;
+            while (current != null)
+            {
+                if (count == index)
+                {
+                    return current.value;
+                }
+                count++;
+                current = current.next;
+            }
+        }
+        return null;
+    }
+
     private static class Entry<K, V>
     {
         K key;
@@ -108,21 +128,6 @@ public class MyHashTable<K, V>
             this.key = key;
             this.value = value;
         }
-    }
-
-    public V getByIndex(int index) {
-        int count = 0;
-        for (Entry<K, V> bucket : table) {
-            Entry<K, V> current = bucket;
-            while (current != null) {
-                if (count == index) {
-                    return current.value;
-                }
-                count++;
-                current = current.next;
-            }
-        }
-        return null;
     }
 
 }

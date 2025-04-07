@@ -1,7 +1,6 @@
 package com.nhlstenden.controllers;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.nhlstenden.middelware.MyArrayList;
 
 import java.io.IOException;
