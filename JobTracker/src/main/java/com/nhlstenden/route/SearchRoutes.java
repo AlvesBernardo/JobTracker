@@ -45,11 +45,14 @@ public class SearchRoutes<T>
             Object foundJob = binaryMiddelWare.doBinarySearch(data, requestBody);
             long endTime = System.currentTimeMillis();
             long executionTime = endTime - startTime;
-            MyBetterMap<String, Object> response = new MyBetterMap<>();
-            response.put("executionTime", executionTime);
+            Map<String, Object> results= Map.of(
+                    "results", foundJob,
+            "executionTime", executionTime
+                );
+
             if (foundJob != null)
             {
-                ctx.json(foundJob);
+                ctx.json(results);
                 System.out.println("Found job: " + foundJob);
             } else
             {
@@ -60,17 +63,11 @@ public class SearchRoutes<T>
 
 
         // Bloom Filter Check Route
-        app.post("/bloom/check-date", ctx ->
+        app.get("/bloom/check-date/{date}", ctx ->
         {
-            // Parse the JSON object from the request body
-            MyHashMap<String, Object> requestBody = new Gson().fromJson(ctx.body(), MyHashMap.class);
-
-            // Extract the date string from the JSON object
-            String dateString = (String) requestBody.get("date_applied");
 
             // Convert the date string to a Date object
-            Date date = new Gson().fromJson("\"" + dateString + "\"", Date.class);
-
+            String date = ctx.pathParam("date");
             long startTime = System.currentTimeMillis();
             // Check if the Bloom filter might contain the date
             boolean mightContain = this.bloomFilter.mightContain((T) date);
