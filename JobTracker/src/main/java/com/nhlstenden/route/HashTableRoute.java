@@ -33,12 +33,19 @@ public class HashTableRoute<T> {
 				ctx.status(400).result("Missing key or value for search.");
 				return;
 			}
-
+			long startTime = System.currentTimeMillis();
 			MyArrayList<Map<String, T>> results = jobApplicationService.searchApplications(key, value);
+			long endTime = System.currentTimeMillis();
+			long executionTime = endTime - startTime;
+
+			Map<String, Object> response = Map.of(
+					"results", results,
+					"executionTime", executionTime
+			);
 			if (results.isEmpty()) {
 				ctx.status(404).result("No applications found for key '" + key + "' with value like '" + value + "'.");
 			} else {
-				ctx.json(results);
+				ctx.json(response);
 				ctx.status(200);
 			}
 		});

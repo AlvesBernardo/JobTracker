@@ -6,6 +6,8 @@ import com.nhlstenden.controllers.SharedData;
 import com.nhlstenden.middelware.BinaryMiddelWare;
 import com.nhlstenden.middelware.BloomFilterMiddelware;
 import com.nhlstenden.middelware.MyArrayList;
+import com.nhlstenden.middelware.MyHashTable;
+import com.nhlstenden.utils.MyBetterMap;
 import com.nhlstenden.utils.MyHashMap;
 import io.javalin.Javalin;
 
@@ -41,9 +43,12 @@ public class SearchRoutes<T>
 				ctx.status(400).result("Invalid search request. Both key and value are required.");
 				return;
 			}
-
+			long startTime = System.currentTimeMillis();
 			Object foundJob = binaryMiddelWare.doBinarySearch(data, requestBody);
-
+			long endTime = System.currentTimeMillis();
+			long executionTime = endTime - startTime;
+			MyBetterMap<String, Object> response = new MyBetterMap<>();
+			response.put("executionTime", executionTime);
 			if (foundJob != null)
 			{
 				ctx.json(foundJob);
@@ -69,9 +74,13 @@ public class SearchRoutes<T>
 			// Convert the date string to a Date object
 			Date date = new Gson().fromJson("\"" + dateString + "\"", Date.class);
 
+			long startTime = System.currentTimeMillis();
 			// Check if the Bloom filter might contain the date
 			boolean mightContain = this.bloomFilter.mightContain((T) date);
-
+			long endTime = System.currentTimeMillis();
+			long executionTime = endTime - startTime;
+			;Map<String, Object> response = new MyBetterMap<>();
+			response.put("executionTime", executionTime);
 			if (mightContain)
 			{
 				// Create a list to store elements with the matching date

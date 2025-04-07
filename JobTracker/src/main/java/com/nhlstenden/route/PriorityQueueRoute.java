@@ -7,7 +7,9 @@ import com.nhlstenden.priorityQueue.PriorityComparator;
 import com.nhlstenden.utils.MyHashMap;
 import io.javalin.Javalin;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PriorityQueueRoute<T>
 {
@@ -40,8 +42,15 @@ public class PriorityQueueRoute<T>
                     // Otherwise, assume T is a simple type and parse it directly
                     element = (T) rawBody;
                 }
-
+                long startTime = System.currentTimeMillis();
                 priorityQueue.add(element);
+                long endTime = System.currentTimeMillis();
+                long executionTime = endTime - startTime;
+                Map<String, Object> response = new HashMap<>();
+                response.put("message", "Element added successfully!");
+                response.put("executionTime", executionTime);
+
+                ctx.json(response);
                 ctx.status(200).result("Element added successfully!");
             } catch (Exception e)
             {
@@ -52,10 +61,16 @@ public class PriorityQueueRoute<T>
 
         app.get("/priorityQueue/peek", ctx ->
         {
+            long startTime = System.currentTimeMillis();
             T element = priorityQueue.peek();
+            long endTime = System.currentTimeMillis();
+            long executionTime = endTime - startTime;
             if (element != null)
             {
-                ctx.json(element);
+                Map<String, Object> response = new HashMap<>();
+                response.put("element", element);
+                response.put("executionTime", executionTime);
+                ctx.json(response);
             }
             else
             {
@@ -66,10 +81,16 @@ public class PriorityQueueRoute<T>
         // Get and remove the highest-priority element
         app.get("/priorityQueue/poll", ctx ->
         {
+            long startTime = System.currentTimeMillis();
             T element = priorityQueue.poll();
+            long endTime = System.currentTimeMillis();
+            long executionTime = endTime - startTime;
             if (element != null)
             {
-                ctx.json(element);
+                Map<String, Object> response = new HashMap<>();
+                response.put("element", element);
+                response.put("executionTime", executionTime);
+                ctx.json(response);
             }
             else
             {
