@@ -29,6 +29,8 @@ public class MyBetterMap<K, V> implements Map<K, V>
      */
     public static void main(String[] args)
     {
+
+        //TODO : @bernardo check if you can change this to implement t object
         Map<String, Integer> map = new MyBetterMap<String, Integer>();
         map.put("Word1", 1);
         map.put("Word2", 2);
